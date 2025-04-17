@@ -5,9 +5,9 @@ class Window():
         # create the rootg widget
         self.__root = Tk()
         # set title
-        self.__root.title("My window")
+        self.__root.title("Maze Solver")
         #create canvas widget
-        self.__canvas = Canvas(self.__root, width=width, height=height)
+        self.__canvas = Canvas(self.__root, bg="white", width=width, height=height)
         #pack the canvas
         self.__canvas.pack(fill=BOTH, expand=1)
         # set running state
@@ -23,8 +23,24 @@ class Window():
         self.__running = True
         while self.__running:
             self.redraw()
+        print("Window closed")
+
+    def draw_line(self, line, fill_color="black"):
+        line.draw(self.__canvas, fill_color)
 
     def close(self):
         self.__running = False
-        self.__root.quit()
-        self.__root.destroy()
+
+
+class Point():
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+class Line():
+    def __init__(self, p1, p2):
+        self.p1 = p1
+        self.p2 = p2
+
+    def draw(self, canvas, fill_color="black"):
+        canvas.create_line(self.p1.x, self.p1.y, self.p2.x, self.p2.y, fill=fill_color, width=2)
